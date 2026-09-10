@@ -40,8 +40,8 @@ export class HelpHandlers {
         },
         export: {
             name: 'Export & Utilities',
-            description: 'Export documents and run custom code',
-            tools: ['export_pdf', 'export_images', 'execute_indesign_code']
+            description: 'Export documents',
+            tools: ['export_pdf', 'export_images']
         }
     };
 

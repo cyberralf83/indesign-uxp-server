@@ -216,7 +216,6 @@ export class InDesignMCPServer {
             case 'set_group_properties': return await GroupHandlers.setGroupProperties(args);
 
             // Utility Functions
-            case 'execute_indesign_code': return await UtilityHandlers.executeInDesignCode(args);
             case 'view_document': return await UtilityHandlers.viewDocument();
             case 'get_session_info': return await UtilityHandlers.getSessionInfo();
             case 'clear_session': return await UtilityHandlers.clearSession();

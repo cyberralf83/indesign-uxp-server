@@ -95,7 +95,19 @@ function enqueueExecution(code) {
 }
 
 // WebSocket server — UXP plugin connects here
-const wss = new WebSocketServer({ port: WS_PORT, host: '127.0.0.1' });
+// Local hardening: browsers always send an http(s) Origin on WebSocket handshakes, so rejecting
+// those stops a web page from connecting in place of the UXP plugin. The plugin sends no web Origin.
+const wss = new WebSocketServer({
+  port: WS_PORT,
+  host: '127.0.0.1',
+  verifyClient: ({ origin }) => {
+    if (origin && /^https?:\/\//i.test(origin)) {
+      console.warn('[Bridge] Rejected WebSocket connection from web origin:', origin);
+      return false;
+    }
+    return true;
+  },
+});
 
 wss.on('connection', (ws) => {
   console.log('[Bridge] Plugin connected');
